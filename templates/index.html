@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Add any CSS stylesheets and JavaScript libraries you need -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- Include Bootstrap if not already included -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../static/images/task-icon.png" type="image/x-icon">
+
+    <!-- Add your title here -->
+    <title>ToDo List</title>
+</head>
+<body>
+    <!-- Your HTML structure remains mostly the same -->
+    <section class="vh-100 gradient-custom-2">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-md-12 col-xl-10">
+                    <div class="card mask-custom">
+                        <div class="card-body p-4 text-white">
+                            <div class="text-center text-dark pt-3 pb-2">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-todo-list/check1.webp"
+                                    alt="Check" width="60">
+                                <h2 class="my-4">{{username}}'s Tasks List</h2>
+                            </div>
+                            <!-- Add the task input form -->
+                            <form method="POST" action="/add_todo" class="mb-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control mx-2" name="todo" placeholder="Enter a new task" required>
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-success">Add Task</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- End of task input form -->
+
+                            <!-- Ensure the task list stays centered and has a maximum height with scrolling -->
+                            <div class="d-flex justify-content-center align-items-center flex-column" style="max-height: 60vh; overflow-y: auto;">
+                                <!-- Replace the following table with your dynamic task list -->
+                                <table class="table text-white mb-0">
+                                    <thead>
+                                        <tr class="text-dark">
+                                            <th scope="col">Task_id</th>
+                                            <th scope="col">Task</th>
+                                            <th scope="col">Priority</th>
+                                            <th scope="col">Actions</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Use a loop to dynamically generate rows for tasks -->
+                                        {% for todo in todos %}
+                                        <tr class="fw-normal text-dark">
+                                            <td class="align-middle">
+                                                <!-- Display the task description -->
+                                                <span>{{todo[0]}}</span>
+                                            </td>
+                                            <td class="align-middle">
+                                                <!-- Display the task description -->
+                                                <span>{{todo[1]}}</span>
+                                            </td>
+                                            <td class="align-middle text-white">
+                                                <h6 class="mb-0">
+                                                    <!-- Set priority badge based on todo.complete_status -->
+                                                    <span class="badge {% if todo[2] %}bg-success{% else %}bg-danger{% endif %}">
+                                                        {% if todo[2] %}Complete{% else %}Incomplete{% endif %}
+                                                    </span>
+                                                </h6>
+                                            </td>
+                                            <td class="align-middle">
+                                                <!-- Add dynamic buttons for task actions -->
+                                                <a href="/toggle_todo/{{ todo[0] }}" data-mdb-toggle="tooltip" title="Toggle Status"><i
+                                                        class="fas fa-check fa-lg {% if todo[2] %}text-danger{% else %}text-success{% endif %} me-3"></i></a>
+                                                <a href="/modify_todo/{{ todo[0] }}" data-mdb-toggle="tooltip" title="Modify"><i
+                                                        class="fas fa-edit fa-lg text-warning mx-2"></i></a>
+                                                <a href="/delete_todo/{{ todo[0] }}" data-mdb-toggle="tooltip" title="Remove"><i
+                                                        class="fas fa-trash-alt fa-lg text-warning"></i></a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                <!-- End of dynamic task list -->
+                            </div>
+                            <div class="d-flex justify-content-center mt-4">
+                                <a href="/logout" class="btn btn-info">Logout <i class="fas fa-sign-out-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

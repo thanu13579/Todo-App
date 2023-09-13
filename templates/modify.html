@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="../static/images/task-icon.png" type="image/x-icon">
+    <title >Modify Task</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Modify Task</h1>
+        <form method="POST" action="/modify_todo/{{ task_id }}" class="mb-4">
+            <div class="form-group my-10">
+                <label for="new_todo" class="my-2">New Task:</label>
+                <input type="text" name="new_todo" value="{{ task[0] }}" class="form-control" required>
+            </div>
+            <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-secondary">Save</button>
+        </form>
+        <a href="/todo-list" class="btn btn-secondary">&larr;Back to Tasks</a>
+    </div>
+    </div>
+    <!-- Include Bootstrap JavaScript and jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+<style>
+    /* Custom CSS for styling */
+    body {
+        background-color: rgba(126, 64, 246, 1); /* Blue background color */
+        /* White text color */
+    }
+
+    .container {
+        background-color: #ffffff; /* White container background */
+        padding: 1vw;
+        border-radius: 2vw; /* Rounded corners */
+        width: 40vw;
+        margin-top: 20vh;
+        overflow-y: auto;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 1vw;
+    }
+
+    .form-group {
+        margin-bottom: 1vw;
+    }
+    @media screen and (max-width: 1000px) {
+    .container {
+        width: 50vw; /* Adjust container width for smaller screens */
+        max-width: none; /* Remove max-width for smaller screens */
+        margin-left: auto; /* Center container horizontally */
+        margin-right: auto; /* Center container horizontally */
+    }
+}
+
+</style>
